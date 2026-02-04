@@ -1,0 +1,200 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SWG Multichain Demo – Grades</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/libraries/ethers.js"></script>
+</head>
+
+<body>
+  <!-- Background overlay layers -->
+  <div class="bg"></div>
+  <div class="bg-glow"></div>
+
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>Demo #1</h1>
+        <p class="subtitle">Off-chain students • On-chain grades across Polygon, Ethereum, and Solana</p>
+      </div>
+
+      <button id="openLoginBtn" class="btn" type="button" hidden>Admin Login</button>
+      <button id="logoutBtn" class="btn" type="button" hidden>Logout</button>
+    </header>
+
+    <!-- Students -->
+    <section class="card card-wide">
+      <div class="card-head">
+        <div>
+          <h2>Students</h2>
+          <select id="studentSelect" class="select">
+            <option value="">Select a student</option>
+          </select>
+
+          <button id="reloadStudentsBtn" class="btn btn-ghost mt-2" type="button">Reload</button>
+        </div>
+
+      </div>
+
+      <div id="studentMeta" class="muted"></div>
+    </section>
+
+    <!-- Grade cards grid -->
+    <section class="grid">
+      <!-- Lab (Polygon) -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Lab Grade</h3>
+            <p class="muted"> <img class="blockchain-logo" src="images/polygon.png" /> Polygon </p>
+          </div>
+          <div class="badge" id="polygonChainBadge">
+            <div class="dot"></div>
+            <span class="badgeText">not connected</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <button id="polygonConnectBtn" class="btn" type="button">Connect Polygon</button>
+          <p id="polygonAccount" class="muted small"></p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <button id="labReadBtn" class="btn btn-ghost" type="button">Get</button>
+        </div>
+
+        <div class="row mt-2">
+          <button id="labSetBtn" class="btn" type="button">Set</button>
+
+          <input id="labGradeInput" class="grade-input input" type="number" min="0" max="10" step="1" placeholder="Grade (0-10)" />
+
+        </div>
+
+        <div id="labGradeOutput" class="output"></div>
+      </div>
+
+      <!-- Midterm (Ethereum) -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Midterm Grade</h3>
+            <p class="muted"><img class="blockchain-logo" src="images/eth.png" /> Ethereum</p>
+          </div>
+          <div class="badge" id="ethereumChainBadge">
+            <div class="dot"></div>
+            <span class="badgeText">not connected</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <button id="ethereumConnectBtn" class="btn" type="button">Connect Ethereum</button>
+          <p id="ethereumAccount" class="muted small"></p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <button id="midGradeReadBtn" class="btn btn-ghost" type="button">Get</button>
+        </div>
+
+        <div class="row mt-2">
+          <button id="midGradeSetBtn" class="btn" type="button">Set</button>
+
+          <input id="midGradeInput" class="grade-input input" type="number" min="0" max="10" step="1" placeholder="Grade (0-10)" />
+
+        </div>
+
+        <div id="midGradeOutput" class="output"></div>
+      </div>
+
+      <!-- Exam (Solana) placeholder -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Exam Grade</h3>
+            <p class="muted"> <img class="blockchain-logo" src="images/solana.webp" /> Solana</p>
+          </div>
+          <span id="solanaBadge" class="badge">coming soon</span>
+        </div>
+
+        <div class="row">
+          <button id="solanaConnectBtn" class="btn" type="button" disabled>Connect Solana</button>
+          <p id="solanaAccount" class="muted small"></p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <button id="examReadBtn" class="btn btn-ghost" type="button" disabled>Get</button>
+        </div>
+
+        <div class="row mt-2">
+          <button id="examSetBtn" class="btn" type="button" disabled>Set</button>
+
+          <input id="examGradeInput" class="grade-input input" type="number" min="0" max="10" step="1" placeholder="Grade (0-10)"
+            disabled />
+
+        </div>
+
+        <div id="examGradeOutput" class="output muted">Solana integration will be added next.</div>
+      </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-overlay" data-close="1"></div>
+
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <div class="modal-head">
+          <h3 id="loginTitle">Admin Login</h3>
+          <button id="loginModalClose" class="icon-btn" type="button" aria-label="Close">✕</button>
+        </div>
+
+        <p class="muted small">Authenticate via SWG API to unlock admin actions.</p>
+
+        <div class="modal-body">
+          <input id="loginUser" class="input" placeholder="Username" autocomplete="username" />
+          <input id="loginPass" class="input" type="password" placeholder="Password" autocomplete="current-password" />
+        </div>
+
+        <div class="modal-actions">
+          <button id="loginCancelBtn" class="btn btn-ghost" type="button">Cancel</button>
+          <button id="loginBtn" class="btn" type="button">Login</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast For info -->
+    <div id="toastHost" class="toast-host"></div>
+
+
+    <!-- Logs + Auth -->
+    <section class="mt-2">
+      <div class="card">
+        <div class="card-head">
+          <h3>Logs</h3>
+          <button id="clearLogsBtn" class="btn btn-ghost" type="button">Clear</button>
+        </div>
+        <div id="logOutput" class="log"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span class="muted small">Tip: Select a student first, then set grades on each chain.</span>
+    </footer>
+  </div>
+
+  <script type="module" src="js/polygon_app.js"></script>
+  <script type="module" src="js/ethereum_app.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
