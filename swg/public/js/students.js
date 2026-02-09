@@ -1,4 +1,4 @@
-import { CONFIG_PUBLIC } from "./public.config.js"
+import { CONFIG_PUBLIC } from "../public.config.js"
 
 const STUDENTS_API = `${CONFIG_PUBLIC.swgApi.origin}/api/students`;
 const selectEl = document.getElementById("studentSelect");

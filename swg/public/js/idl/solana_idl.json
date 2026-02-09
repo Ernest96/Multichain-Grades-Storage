@@ -1,0 +1,162 @@
+{
+  "address": "9cdrcYFonADBKCEgLFJfkTMBYAYUzdG61h58hMx1nnvP",
+  "metadata": {
+    "name": "exam_grade_storage",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "set_exam_grade",
+      "discriminator": [
+        119,
+        216,
+        169,
+        185,
+        90,
+        48,
+        123,
+        113
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "exam_grade",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  120,
+                  97,
+                  109,
+                  95,
+                  103,
+                  114,
+                  97,
+                  100,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "student_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "student_id",
+          "type": "string"
+        },
+        {
+          "name": "grade",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ExamGradeAccount",
+      "discriminator": [
+        126,
+        117,
+        222,
+        26,
+        109,
+        10,
+        221,
+        238
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "ExamGradeUpdated",
+      "discriminator": [
+        155,
+        90,
+        44,
+        252,
+        36,
+        197,
+        99,
+        83
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "EmptyStudentId",
+      "msg": "Empty studentId"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidGrade",
+      "msg": "Invalid grade (must be 0..10)"
+    },
+    {
+      "code": 6002,
+      "name": "NotAdmin",
+      "msg": "Only admin can set exam grades"
+    },
+    {
+      "code": 6003,
+      "name": "StudentMismatch",
+      "msg": "StudentId mismatch"
+    }
+  ],
+  "types": [
+    {
+      "name": "ExamGradeAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "student_id",
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "type": "u8"
+          },
+          {
+            "name": "exists",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ExamGradeUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "student_id",
+            "type": "string"
+          },
+          {
+            "name": "grade",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

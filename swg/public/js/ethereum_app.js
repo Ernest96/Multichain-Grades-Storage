@@ -1,5 +1,5 @@
-import { setLog, getSelectedStudentIdOrThrow, toast } from "./utils.js";
-import { CONFIG_PUBLIC } from "./public.config.js"
+import { setLog, getSelectedStudentIdOrThrow, toast, pickEvmProvider } from "./utils.js";
+import { CONFIG_PUBLIC } from "../public.config.js"
 
 const ETH_RPC_URL = CONFIG_PUBLIC.ethereum.rpcUrl;
 const ETH_CONTRACT_ADDRESS = CONFIG_PUBLIC.ethereum.contractAddress;
@@ -18,6 +18,7 @@ const gradeInputElement = document.getElementById("midGradeInput");
 let browserProvider = null;
 let signer = null;
 let userAddress = null;
+let evm = null;
 
 const CHAIN = {
   key: "eth",
@@ -43,23 +44,24 @@ function getGradeOrThrow() {
 }
 
 async function refreshWalletState() {
-  browserProvider = new ethers.BrowserProvider(window.ethereum);
+  if (!evm) throw new Error("No EVM provider selected");
+  browserProvider = new ethers.BrowserProvider(evm);
   signer = await browserProvider.getSigner();
   userAddress = await signer.getAddress();
 }
 
-async function ensureNetwork(targetChainIdHex, addParams) {
-  const current = await window.ethereum.request({ method: "eth_chainId" });
+async function ensureNetwork(provider, targetChainIdHex, addParams) {
+  const current = await provider.request({ method: "eth_chainId" });
   if (current === targetChainIdHex) return;
 
   try {
-    await window.ethereum.request({
+    await provider.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: targetChainIdHex }],
     });
   } catch (err) {
     if (err?.code === 4902) {
-      await window.ethereum.request({
+      await provider.request({
         method: "wallet_addEthereumChain",
         params: [addParams],
       });
@@ -72,14 +74,24 @@ async function ensureNetwork(targetChainIdHex, addParams) {
 
 // Connect wallet
 document.getElementById("ethereumConnectBtn").addEventListener("click", async () => {
+  debugger;
+
   try {
     if (!window.ethereum) {
       toast("EVM Wallet not found");
       return;
     }
 
-    await ensureNetwork(CHAIN.chainIdHex, CHAIN.addParams);
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+
+    evm = await pickEvmProvider();
+    if (!evm) {
+      toast("No wallet selected");
+      return;
+    }
+
+    await ensureNetwork(evm, CHAIN.chainIdHex, CHAIN.addParams);
+    await evm.request({ method: "eth_requestAccounts" });
+
 
     await refreshWalletState();
     setLog(`Ethereum Wallet connected. ${userAddress}`);
@@ -121,7 +133,7 @@ document.getElementById("midGradeReadBtn").addEventListener("click", async () =>
 
 // Set midterm grade (wallet needed)
 document.getElementById("midGradeSetBtn").addEventListener("click", async () => {
-  if (!window.ethereum) {
+  if (!evm) {
     toast("MetaMask not found");
     return;
   }
@@ -135,7 +147,7 @@ document.getElementById("midGradeSetBtn").addEventListener("click", async () => 
     const gradeNum = getGradeOrThrow();
 
     setLog(`Switching to ${CHAIN.label} (if needed)...`);
-    await ensureNetwork(CHAIN.chainIdHex, CHAIN.addParams);
+    await ensureNetwork(evm, CHAIN.chainIdHex, CHAIN.addParams);
 
     await refreshWalletState();
 

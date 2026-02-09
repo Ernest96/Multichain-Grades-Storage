@@ -1,10 +1,10 @@
 import "../config/env.js";
+import { CONFIG } from "../config/project.config.js";
 
 import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import { setSecurityHeaders } from "./middleware/policies.middleware.js";
-import { CONFIG } from "../config/project.config.js";
 
 const app = express();
 const PORT = CONFIG.swg.port;

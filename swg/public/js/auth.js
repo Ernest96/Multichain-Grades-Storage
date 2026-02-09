@@ -1,5 +1,5 @@
 import { toast } from "./utils.js";
-import { CONFIG_PUBLIC } from "./public.config.js"
+import { CONFIG_PUBLIC } from "../public.config.js"
 
 const API_BASE = CONFIG_PUBLIC.swgApi.origin;
 

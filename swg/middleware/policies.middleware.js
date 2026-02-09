@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { CONFIG } from "../../config/project.config.js";
 
-
 const {
   security: { jwtSecret: JWT_SECRET },
   swgApi,
@@ -29,6 +28,9 @@ function roleFromCookie(req) {
   }
 }
 
+/**
+ * Resolve connect-src with base + routeAdd + roleAdd + routeRoleAdd
+ */
 function resolveConnectSrc(path, role) {
   const csp = swg.csp;
 
@@ -57,12 +59,39 @@ function resolveConnectSrc(path, role) {
   return { connectSrc, routeKey, routeRolesKey };
 }
 
-function buildCspHeader(connectSrc) {
+/**
+ * Resolve script-src with base + routeAdd + roleAdd + routeRoleAdd
+ * Uses base.directives.scriptSrc as baseline.
+ */
+function resolveScriptSrc(path, role) {
+  const csp = swg.csp;
+  const d = csp.base.directives;
+
+  const base = [...(d.scriptSrc || [])];
+
+  const routeKey = mostSpecificRoute(path, csp.routes);
+  const routeRolesKey = mostSpecificRoute(path, csp.routeRoles);
+
+  const routeAdd = csp.routes?.[routeKey]?.scriptAdd || [];
+  const roleAdd = csp.roles?.[role]?.scriptAdd || [];
+  const routeRoleAdd = csp.routeRoles?.[routeRolesKey]?.[role]?.scriptAdd || [];
+
+  const scriptSrc = Array.from(new Set([
+    ...base,
+    ...routeAdd,
+    ...roleAdd,
+    ...routeRoleAdd,
+  ]));
+
+  return { scriptSrc };
+}
+
+function buildCspHeader({ connectSrc, scriptSrc }) {
   const d = swg.csp.base.directives;
 
   return [
     `default-src ${d.defaultSrc.join(" ")}`,
-    `script-src ${d.scriptSrc.join(" ")}`,
+    `script-src ${scriptSrc.join(" ")}`,
     `img-src ${d.imgSrc.join(" ")}`,
     `style-src ${d.styleSrc.join(" ")}`,
     `font-src ${d.fontSrc.join(" ")}`,
@@ -73,14 +102,15 @@ function buildCspHeader(connectSrc) {
   ].join("; ");
 }
 
-
 export function setSecurityHeaders(req, res, next) {
   const role = roleFromCookie(req);
+
   const { connectSrc, routeKey, routeRolesKey } = resolveConnectSrc(req.path, role);
+  const { scriptSrc } = resolveScriptSrc(req.path, role);
 
-  res.setHeader("Content-Security-Policy", buildCspHeader(connectSrc));
+  res.setHeader("Content-Security-Policy", buildCspHeader({ connectSrc, scriptSrc }));
 
-  // COOP / COEP / CORP
+  // COOP / COEP / CORP (keep your current settings)
   res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
   res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
   res.setHeader("Cross-Origin-Resource-Policy", "same-origin");

@@ -1,11 +1,12 @@
 import "../config/env.js";
+import { CONFIG } from "../config/project.config.js";
+
+
 import express from "express";
 import cookieParser from "cookie-parser";
 import studentsRouter from "./routes/students.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import { corsMiddleware } from "./middleware/cors.middleware.js";
-import { CONFIG } from "../config/project.config.js";
-import "dotenv/config";
 
 const app = express();
 const HOST = CONFIG.swgApi.host;

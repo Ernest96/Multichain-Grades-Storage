@@ -1,5 +1,5 @@
-import { setLog, getSelectedStudentIdOrThrow, toast } from "./utils.js";
-import { CONFIG_PUBLIC } from "./public.config.js"
+import { setLog, getSelectedStudentIdOrThrow, toast, pickEvmProvider } from "./utils.js";
+import { CONFIG_PUBLIC } from "../public.config.js";
 
 const POL_RPC_URL = CONFIG_PUBLIC.polygon.rpcUrl;
 const POL_CONTRACT_ADDRESS = CONFIG_PUBLIC.polygon.contractAddress;
@@ -18,11 +18,12 @@ const gradeInputElement = document.getElementById("labGradeInput");
 let browserProvider = null;
 let signer = null;
 let userAddress = null;
+let evm = null;
 
 const CHAIN = {
   key: "pol",
   label: "Polygon Amoy",
-  chainIdHex: "0x13882", // 80002
+  chainIdHex: "0x13882",
   rpcUrl: POL_RPC_URL,
   contract: POL_CONTRACT_ADDRESS,
   addParams: {
@@ -43,23 +44,23 @@ function getGradeOrThrow() {
 }
 
 async function refreshWalletState() {
-  browserProvider = new ethers.BrowserProvider(window.ethereum);
+  browserProvider = new ethers.BrowserProvider(evm);
   signer = await browserProvider.getSigner();
   userAddress = await signer.getAddress();
 }
 
-async function ensureNetwork(targetChainIdHex, addParams) {
-  const current = await window.ethereum.request({ method: "eth_chainId" });
+async function ensureNetwork(provider, targetChainIdHex, addParams) {
+  const current = await provider.request({ method: "eth_chainId" });
   if (current === targetChainIdHex) return;
 
   try {
-    await window.ethereum.request({
+    await provider.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: targetChainIdHex }],
     });
   } catch (err) {
     if (err?.code === 4902) {
-      await window.ethereum.request({
+      await provider.request({
         method: "wallet_addEthereumChain",
         params: [addParams],
       });
@@ -72,24 +73,27 @@ async function ensureNetwork(targetChainIdHex, addParams) {
 // Connect wallet
 document.getElementById("polygonConnectBtn").addEventListener("click", async () => {
   try {
-    if (!window.ethereum) {
-      toast("EVM Wallet not found");
+    evm = await pickEvmProvider();
+    if (!evm) {
+      toast("No wallet selected");
       return;
     }
 
-    await ensureNetwork(CHAIN.chainIdHex, CHAIN.addParams);
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+    await ensureNetwork(evm, CHAIN.chainIdHex, CHAIN.addParams);
+    await evm.request({ method: "eth_requestAccounts" });
 
     await refreshWalletState();
     setLog(`Polygon Wallet connected. ${userAddress}`);
+
     connectionBadgeText.textContent = "connected";
     connectionBadgeDot.classList.add("green");
+
   } catch (e) {
     setLog(`Error: ${e?.message ?? e}`);
   }
 });
 
-// Read lab grade (no wallet needed)
+// Read lab grade
 document.getElementById("labReadBtn").addEventListener("click", async () => {
   try {
     const studentId = getSelectedStudentIdOrThrow();
@@ -116,23 +120,19 @@ document.getElementById("labReadBtn").addEventListener("click", async () => {
   }
 });
 
-// Set lab grade (wallet needed)
+// Set lab grade
 document.getElementById("labSetBtn").addEventListener("click", async () => {
-  if (!window.ethereum) {
-    toast("MetaMask not found");
-    return;
-  }
-  if (!signer) {
+  if (!evm || !signer) {
     toast("Connect wallet first");
     return;
-  } 
+  }
 
   try {
     const studentId = getSelectedStudentIdOrThrow();
     const gradeNum = getGradeOrThrow();
 
     setLog(`Switching to ${CHAIN.label} (if needed)...`);
-    await ensureNetwork(CHAIN.chainIdHex, CHAIN.addParams);
+    await ensureNetwork(evm, CHAIN.chainIdHex, CHAIN.addParams);
 
     await refreshWalletState();
 
@@ -140,13 +140,13 @@ document.getElementById("labSetBtn").addEventListener("click", async () => {
 
     setLog(`Sending tx on ${CHAIN.label}...`);
     const tx = await writeContract.setLabGrade(studentId, gradeNum);
+
     toast(`TX sent: ${tx.hash}`);
     setLog(`TX sent: ${tx.hash}`);
 
     const receipt = await tx.wait();
     setLog(`Confirmed on ${CHAIN.label} in block: ${receipt.blockNumber}`);
 
-    // optional: refresh output after write
     outputElement.textContent = `Lab grade (${studentId}): ${gradeNum}`;
   } catch (e) {
     const msg = e?.message ?? e;

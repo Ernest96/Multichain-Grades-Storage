@@ -15,8 +15,9 @@ export const CONFIG = {
 
   solana: {
     rpcUrl: "https://api.devnet.solana.com",
-    privateKey: process.env.SOLANA_PRIVATE_KEY,
-    contractAddress: "",
+    programId: "9cdrcYFonADBKCEgLFJfkTMBYAYUzdG61h58hMx1nnvP",
+    idlSrc: "../solana/target/idl/exam_grade_storage.json",
+    idlDestName: "solana_idl.json",
   },
   security: {
     jwtSecret: process.env.JWT_SECRET,
@@ -60,13 +61,15 @@ export const CONFIG = {
       routes: {
         "/": {
           connectAdd: [],
+          scriptAdd: []
         },
       },
 
       // role specific CSP
       roles: {
         admin: {
-          connectAdd: ["https://api.devnet.solana.com"],
+          connectAdd: ["https://api.devnet.solana.com", "https://esm.sh", "wss://api.devnet.solana.com/"],
+          scriptAdd: ["https://esm.sh"]
         },
       },
 
@@ -75,6 +78,7 @@ export const CONFIG = {
         "/": {
           admin: {
             connectAdd: [],
+            scriptAdd: []
           },
         },
       },
