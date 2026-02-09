@@ -56,7 +56,7 @@ The SWG dynamically generates headers based on:
 - authenticated user role (guest / admin)
 - blockchain RPC endpoints required for runtime interactions
 
-```json
+```js
 swgApi: {
     host: process.env.SWG_API_HOST,
     port: Number(process.env.SWG_API_PORT),
