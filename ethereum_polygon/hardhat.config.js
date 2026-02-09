@@ -1,5 +1,6 @@
 
-import { CONFIG } from "../project.config.js";
+import "../config/env.js";
+import { CONFIG } from "../config/project.config.js";
 import "@nomicfoundation/hardhat-ethers";
 
 export default {

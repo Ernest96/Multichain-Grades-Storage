@@ -12,8 +12,8 @@ contract LabGradeStorage {
     event LabGradeUpdated(string studentId, uint8 grade);
 
     function setLabGrade(string calldata studentId, uint8 grade) external {
-        require(bytes(studentId).length > 0, "Empty studentId");
-        require(grade <= 10, "Invalid grade");
+        require(bytes(studentId).length > 0, "Empty studentId!");
+        require(grade <= 10, "Invalid grade!");
 
         labGrades[studentId] = Grade({ value: grade, exists: true });
         emit LabGradeUpdated(studentId, grade);

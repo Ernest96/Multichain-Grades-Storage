@@ -90,6 +90,70 @@ http://localhost:PORT
 
 ---
 
+## Smart Contracts Deployement
+
+This project includes an example of deployed smart contracts. You do not need to redeploy them to use the app.
+The project uses Sepolia, Amoy and Solana devnet.
+
+### Ethereum, Polygon
+
+1. Navigate to ethereum_polygon folder
+
+```bash
+cd ethereum_polygon
+```
+
+2. Install dependencies
+
+```bash
+npm init -y
+npm i -D hardhat@hh2 @nomicfoundation/hardhat-ethers@hh2
+```
+
+3. Configure RPC urls and Private Keys in config/project.config.js and config/.env
+
+4. Compile .sol contracts
+
+```bash
+npx hardhat compile
+```
+
+5. Deploy Ethereum smart-contract
+
+```bash
+npx hardhat run scripts/deploy-midterm.js --network sepolia
+```
+
+6. Deploy Polygon smart-contract
+
+```bash
+npx hardhat run scripts/deploy-lab.js --network amoy
+```
+
+### Solana
+
+Create a local wallet before doing this. You have the privat key on your machine already.
+
+1. Navigate to solana folder
+
+```bash
+cd solana
+```
+
+2. Change to devnet
+
+```bash
+solana config set --url https://api.devnet.solana.com
+```
+
+3. Deploy smart contract (do not forget to update program id)
+
+```bash
+anchor deploy
+```
+
+---
+
 ## Tech Stack
 
 - CSP / CORS / COOP / COEP security policies

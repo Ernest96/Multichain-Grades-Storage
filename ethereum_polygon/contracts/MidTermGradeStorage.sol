@@ -12,8 +12,8 @@ contract MidTermGradeStorage {
     event MidTermGradeUpdated(string studentId, uint8 grade);
 
     function setMidTermGrade(string calldata studentId, uint8 grade) external {
-        require(bytes(studentId).length > 0, "Empty studentId");
-        require(grade <= 10, "Invalid grade");
+        require(bytes(studentId).length > 0, "Empty studentId!");
+        require(grade <= 10, "Invalid grade!");
 
         midGrades[studentId] = Grade({ value: grade, exists: true });
         emit MidTermGradeUpdated(studentId, grade);
