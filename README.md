@@ -47,7 +47,7 @@ The architecture separates identity and access control (off-chain), data integri
 
 ---
 
-## Configuration
+## Running the project
 
 Before running the project:
 
@@ -67,20 +67,21 @@ SWG_HOST=localhost
 SWG_PORT=3000  
 ```
 
-3. Download, build dependencies and generate public config using:
+3. Download, build dependencies, generate public config and start the app:
+
+### FOR  LOCAL:
 
 ```bash
-sh ./build.sh
+sh ./local-start.sh
 ```
 
----
+### FOR DOCKER:
 
-## Quick Start
+The project includes Dockerfiles and docker-compose configuration for running SWG and SWG API as containers.
 
-Run:
 
 ```bash
-npm run start  
+sh ./docker-start.sh
 ```
 
 Then open the application in the browser at:
