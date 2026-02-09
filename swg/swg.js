@@ -21,5 +21,5 @@ app.use(setSecurityHeaders);
 app.use(express.static(path.join(process.cwd(), "public")));
 
 app.listen(PORT, () => {
-  console.log(`SWG_UI running at ${DAPP_ORIGIN}`);
+  console.log(`SWG running at ${DAPP_ORIGIN}`);
 });
