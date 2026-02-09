@@ -3,5 +3,6 @@
     "start:swg": "cd swg && node swg.js",
     "start:api": "cd swg_api && node swg-api.js",
     "start": "npm run start:swg & npm run start:api"
-  }
+  },
+  "type": "module"
 }

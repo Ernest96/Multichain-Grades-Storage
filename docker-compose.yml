@@ -1,0 +1,20 @@
+services:
+  swg_api:
+    build: ./swg_api
+    container_name: swg_api
+    env_file:
+      - ./config/.env
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./config:/config:ro
+
+  swg:
+    build: ./swg
+    container_name: swg
+    depends_on:
+      - swg_api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config:/config:ro
