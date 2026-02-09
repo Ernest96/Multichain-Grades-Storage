@@ -37,11 +37,10 @@ The architecture separates identity and access control (off-chain), data integri
 ## Key Features
 
 - Multichain smart contract integration (EVM + Solana)
+- CSP-hardened Semantic Web Gateway security layer
 - Role-based admin authorization
 - Wallet-agnostic frontend (MetaMask / Rabby / Coinbase / Phantom)
-- CSP-hardened Semantic Web Gateway security layer
 - Deterministic student identity mapping across chains
-- Cross-chain academic record consistency model
 
 ---
 
@@ -53,6 +52,7 @@ Before running the project:
 
 2. Create a `.env` file inside the `config/` directory and define the required environment variables, for example:
 
+```bash
 POL_PRIVATE_KEY=  
 ETH_PRIVATE_KEY=  
 JWT_SECRET=  
@@ -62,10 +62,13 @@ SWG_API_HOST=localhost
 SWG_API_PORT=3001  
 SWG_HOST=localhost  
 SWG_PORT=3000  
+```
 
 3. Download, build dependencies and generate public config using:
 
+```bash
 sh ./build.sh
+```
 
 ---
 
@@ -73,7 +76,9 @@ sh ./build.sh
 
 Run:
 
+```bash
 npm run start  
+```
 
 Then open the application in the browser at:
 
@@ -83,13 +88,14 @@ http://localhost:PORT
 
 ## Tech Stack
 
+- CSP / CORS / COOP / COEP security policies
 - Solidity (Ethereum / Polygon)
 - Rust + Anchor (Solana)
 - Node.js (SWG & API)
 - Ethers.js
 - Solana Web3.js + Anchor JS
 - JWT authentication
-- CSP / CORS / COOP / COEP security policies
+
 
 ---
 
