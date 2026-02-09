@@ -22,15 +22,13 @@ All chains are accessed through a unified frontend, demonstrating a real-world c
 
 ## Architecture
 
-Frontend (Browser UI)  
-↓  
-Semantic Web Gateway (SWG)  
-↓  
-SWG API (Off Chain data & Authorization)  
-↓  
-Ethereum Smart Contract  
-Polygon Smart Contract  
-Solana Program  
+- Frontend (Browser UI)  
+- Semantic Web Gateway (SWG)    
+- SWG API (Off Chain data & Authorization)  
+- Blockchains  
+    - Ethereum Smart Contract  
+    - Polygon Smart Contract  
+    - Solana Program  
 
 The architecture separates identity and access control (off-chain), data integrity and persistence (on-chain), and policy enforcement and interoperability (gateway layer).
 
