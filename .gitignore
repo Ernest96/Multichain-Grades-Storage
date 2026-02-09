@@ -40,6 +40,9 @@ coverage/
 **/*.json.keypair
 **/*-keypair.json
 
+**/*.rs.bk
+solana/.yarn
+
 # =====================
 # Generated files
 # =====================
