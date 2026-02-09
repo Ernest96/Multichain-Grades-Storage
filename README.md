@@ -69,13 +69,13 @@ SWG_PORT=3000
 
 3. Download, build dependencies, generate public config and start the app:
 
-### FOR  LOCAL:
+### For local:
 
 ```bash
 sh ./local-start.sh
 ```
 
-### FOR DOCKER:
+### For Docker:
 
 The project includes Dockerfiles and docker-compose configuration for running SWG and SWG API as containers.
 
@@ -146,7 +146,13 @@ cd solana
 solana config set --url https://api.devnet.solana.com
 ```
 
-3. Deploy smart contract (do not forget to update program id)
+3. Build smart contract
+
+```bash
+anchor build
+```
+
+4. Deploy smart contract (do not forget to update program id)
 
 ```bash
 anchor deploy
