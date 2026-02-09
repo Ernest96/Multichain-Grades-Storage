@@ -6,13 +6,11 @@ export const CONFIG = {
     privateKey: process.env.POL_PRIVATE_KEY,
     contractAddress: "0xA42984803c7d21FA453bde0527A5B9baF65235e6",
   },
-
   ethereum: {
     rpcUrl: "https://sepolia.infura.io/v3/bd24e72571644461944188b92dfb02c5",
     privateKey: process.env.ETH_PRIVATE_KEY,
     contractAddress: "0x485f3119D4C0Be894A2220865ACc9a30861d3792",
   },
-
   solana: {
     rpcUrl: "https://api.devnet.solana.com",
     programId: "9cdrcYFonADBKCEgLFJfkTMBYAYUzdG61h58hMx1nnvP",
@@ -24,7 +22,6 @@ export const CONFIG = {
     adminLogin: process.env.ADMIN_LOGIN,
     adminPassword: process.env.ADMIN_PASSWORD,
   },
-
   swgApi: {
     host: process.env.SWG_API_HOST,
     port: Number(process.env.SWG_API_PORT),
@@ -35,7 +32,6 @@ export const CONFIG = {
       allowCredentials: true,
     },
   },
-
   swg: {
     host: process.env.SWG_HOST,
     port: Number(process.env.SWG_PORT),
@@ -56,7 +52,6 @@ export const CONFIG = {
           "https://rpc-amoy.polygon.technology",
         ],
       },
-
       // route specific CSP
       routes: {
         "/": {
@@ -64,7 +59,6 @@ export const CONFIG = {
           scriptAdd: []
         },
       },
-
       // role specific CSP
       roles: {
         admin: {
@@ -72,7 +66,6 @@ export const CONFIG = {
           scriptAdd: ["https://esm.sh"]
         },
       },
-
       // route + role specific CSP
       routeRoles: {
         "/": {

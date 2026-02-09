@@ -47,6 +47,74 @@ The architecture separates identity and access control (off-chain), data integri
 
 ---
 
+## HTTP Policies Configuration
+
+The Semantic Web Gateway (SWG) implements a strict browser-side and gateway-level security model designed to safely enable multichain interactions directly from the frontend while preserving strong origin isolation and minimizing cross-origin attack surfaces.
+
+The SWG dynamically generates headers based on:
+- application route
+- authenticated user role (guest / admin)
+- blockchain RPC endpoints required for runtime interactions
+
+```json
+swgApi: {
+    host: process.env.SWG_API_HOST,
+    port: Number(process.env.SWG_API_PORT),
+    cors: {
+      allowOriginsExtra: [],
+      allowMethods: ["GET", "POST", "OPTIONS"],
+      allowHeaders: ["Content-Type"],
+      allowCredentials: true,
+    },
+  },
+  swg: {
+    host: process.env.SWG_HOST,
+    port: Number(process.env.SWG_PORT),
+    csp: {
+      base: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          imgSrc: ["'self'", "data:"],
+          styleSrc: ["'self'", "https://fonts.googleapis.com"],
+          fontSrc: ["'self'", "https://fonts.gstatic.com"],
+          objectSrc: ["'none'"],
+          baseUri: ["'none'"],
+          frameAncestors: ["'none'"],
+        },
+        connectSrc: [
+          "https://sepolia.infura.io",
+          "https://rpc-amoy.polygon.technology",
+        ],
+      },
+      // route specific CSP
+      routes: {
+        "/": {
+          connectAdd: [],
+          scriptAdd: []
+        },
+      },
+      // role specific CSP
+      roles: {
+        admin: {
+          connectAdd: ["https://api.devnet.solana.com", "https://esm.sh", "wss://api.devnet.solana.com/"],
+          scriptAdd: ["https://esm.sh"]
+        },
+      },
+      // route + role specific CSP
+      routeRoles: {
+        "/": {
+          admin: {
+            connectAdd: [],
+            scriptAdd: []
+          },
+        },
+      },
+    },
+  },
+```
+---
+
 ## Running the project
 
 Before running the project:
