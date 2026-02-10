@@ -140,7 +140,7 @@ SWG_PORT=3000
 ### For local:
 
 ```bash
-sh ./local-start.sh
+sh ./start-local.sh
 ```
 
 ### For Docker:
@@ -149,7 +149,7 @@ The project includes Dockerfiles and docker-compose configuration for running SW
 
 
 ```bash
-sh ./docker-start.sh
+sh ./start-docker.sh
 ```
 
 Then open the application in the browser at:
