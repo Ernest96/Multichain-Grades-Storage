@@ -14,6 +14,9 @@ const outputElement = document.getElementById("midGradeOutput");
 const connectionBadgeText = document.querySelector("#ethereumChainBadge .badgeText");
 const connectionBadgeDot = document.querySelector("#ethereumChainBadge .dot");
 const gradeInputElement = document.getElementById("midGradeInput");
+const setBtn = document.getElementById("midGradeSetBtn");
+const readBtn = document.getElementById("midGradeReadBtn");
+const connectBtn = document.getElementById("ethereumConnectBtn");
 
 let browserProvider = null;
 let signer = null;
@@ -73,7 +76,7 @@ async function ensureNetwork(provider, targetChainIdHex, addParams) {
 
 
 // Connect wallet
-document.getElementById("ethereumConnectBtn").addEventListener("click", async () => {
+connectBtn?.addEventListener("click", async () => {
   debugger;
 
   try {
@@ -105,7 +108,7 @@ document.getElementById("ethereumConnectBtn").addEventListener("click", async ()
 });
 
 // Read midterm grade (no wallet needed)
-document.getElementById("midGradeReadBtn").addEventListener("click", async () => {
+readBtn?.addEventListener("click", async () => {
   try {
     const studentId = getSelectedStudentIdOrThrow();
 
@@ -132,7 +135,7 @@ document.getElementById("midGradeReadBtn").addEventListener("click", async () =>
 });
 
 // Set midterm grade (wallet needed)
-document.getElementById("midGradeSetBtn").addEventListener("click", async () => {
+setBtn?.addEventListener("click", async () => {
   if (!evm) {
     toast("MetaMask not found");
     return;
@@ -155,9 +158,9 @@ document.getElementById("midGradeSetBtn").addEventListener("click", async () => 
 
     setLog(`Sending tx on ${CHAIN.label}...`);
     const tx = await writeContract.setMidTermGrade(studentId, gradeNum);
+
     toast(`TX sent: ${tx.hash}`);
     setLog(`TX sent: ${tx.hash}`);
-
     const receipt = await tx.wait();
     setLog(`Confirmed on ${CHAIN.label} in block: ${receipt.blockNumber}`);
 

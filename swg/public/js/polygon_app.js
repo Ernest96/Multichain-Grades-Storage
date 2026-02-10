@@ -14,6 +14,10 @@ const outputElement = document.getElementById("labGradeOutput");
 const connectionBadgeText = document.querySelector("#polygonChainBadge .badgeText");
 const connectionBadgeDot = document.querySelector("#polygonChainBadge .dot");
 const gradeInputElement = document.getElementById("labGradeInput");
+const setBtn = document.getElementById("labSetBtn");
+const readBtn = document.getElementById("labReadBtn");
+const connectBtn = document.getElementById("polygonConnectBtn");
+
 
 let browserProvider = null;
 let signer = null;
@@ -71,7 +75,7 @@ async function ensureNetwork(provider, targetChainIdHex, addParams) {
 }
 
 // Connect wallet
-document.getElementById("polygonConnectBtn").addEventListener("click", async () => {
+connectBtn?.addEventListener("click", async () => {
   try {
     evm = await pickEvmProvider();
     if (!evm) {
@@ -94,7 +98,7 @@ document.getElementById("polygonConnectBtn").addEventListener("click", async () 
 });
 
 // Read lab grade
-document.getElementById("labReadBtn").addEventListener("click", async () => {
+readBtn?.addEventListener("click", async () => {
   try {
     const studentId = getSelectedStudentIdOrThrow();
 
@@ -121,7 +125,7 @@ document.getElementById("labReadBtn").addEventListener("click", async () => {
 });
 
 // Set lab grade
-document.getElementById("labSetBtn").addEventListener("click", async () => {
+setBtn?.addEventListener("click", async () => {
   if (!evm || !signer) {
     toast("Connect wallet first");
     return;

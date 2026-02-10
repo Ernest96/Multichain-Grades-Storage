@@ -14,15 +14,6 @@ const setBtn = document.getElementById("examSetBtn");
 const connectionBadgeText = document.querySelector("#solanaChainBadge .badgeText");
 const connectionBadgeDot = document.querySelector("#solanaChainBadge .dot");
 
-function setBadge(state, text) {
-  if (connectionBadgeText) connectionBadgeText.textContent = text ?? "";
-  if (!connectionBadgeDot) return;
-
-  connectionBadgeDot.classList.remove("green", "yellow", "red");
-  if (state === "ok") connectionBadgeDot.classList.add("green");
-  else if (state === "warn") connectionBadgeDot.classList.add("yellow");
-  else if (state === "bad") connectionBadgeDot.classList.add("red");
-}
 
 function getGradeOrThrow() {
   const v = Number((gradeInputElement?.value || "").trim());
@@ -32,21 +23,6 @@ function getGradeOrThrow() {
   return v;
 }
 
-function disableUi() {
-  if (readBtn) readBtn.disabled = true;
-  if (setBtn) setBtn.disabled = true;
-  if (gradeInputElement) gradeInputElement.disabled = true;
-}
-
-function enableUi() {
-  if (readBtn) readBtn.disabled = false;
-  if (setBtn) setBtn.disabled = false;
-  if (gradeInputElement) gradeInputElement.disabled = false;
-}
-
-// Default UI state
-disableUi();
-setBadge("warn", "not connected");
 
 // ---- Config ----
 const SOL_RPC_URL = CONFIG_PUBLIC.solana.rpcUrl;
@@ -79,9 +55,7 @@ async function initProgramOrThrow() {
     return r.json();
   });
 
-  const programId = new web3.PublicKey(SOL_PROGRAM_ID);
   connection = new web3.Connection(SOL_RPC_URL, "confirmed");
-
 
   // Wallet (Phantom) adapter object for AnchorProvider
   const wallet = {
@@ -112,7 +86,6 @@ connectBtn?.addEventListener("click", async () => {
   try {
     if (!window.solana || !window.solana.isPhantom) {
       toast("Phantom wallet not found");
-      setBadge("bad", "no wallet");
       return;
     }
 
@@ -124,13 +97,13 @@ connectBtn?.addEventListener("click", async () => {
     const pubkey = window.solana.publicKey?.toBase58?.() ?? String(window.solana.publicKey);
     setLog(`Solana wallet connected. ${pubkey}`);
 
-    enableUi();
-    setBadge("ok", "connected");
+    connectionBadgeDot.classList.add("green");
+    connectionBadgeText.textContent = "connected";
+
   } catch (e) {
     const msg = e?.message ?? String(e);
     setLog(`Error: ${msg}`);
     toast(msg);
-    setBadge("bad", "error");
   }
 });
 
