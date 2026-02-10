@@ -1,4 +1,3 @@
-// swg/public/js/solana_app.js
 import { setLog, getSelectedStudentIdOrThrow, toast } from "./utils.js";
 import { CONFIG_PUBLIC } from "../public.config.js";
 

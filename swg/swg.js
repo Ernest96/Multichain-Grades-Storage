@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(setSecurityHeaders);
 
 // Serve static files
-app.use(express.static(path.join(process.cwd(), "public")));
+app.use(express.static(path.join(process.cwd(), "../public")));
 
 app.listen(PORT, () => {
   console.log(`SWG running at ${DAPP_ORIGIN}`);
