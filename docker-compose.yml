@@ -8,8 +8,6 @@ services:
       - ./config/.env
     ports:
       - "3001:3001"
-    volumes:
-      - ./config:/config:ro
 
   swg:
     build:
@@ -20,5 +18,4 @@ services:
       - swg_api
     ports:
       - "3000:3000"
-    volumes:
-      - ./config:/config:ro
+
