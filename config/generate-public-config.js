@@ -12,6 +12,7 @@ const PUBLIC_CONFIG = {
   ethereum: {
     rpcUrl: CONFIG.ethereum.rpcUrl,
     contractAddress: CONFIG.ethereum.contractAddress,
+    chainIdHex: CONFIG.ethereum.chainIdHex
   },
   polygon: {
     rpcUrl: CONFIG.polygon.rpcUrl,

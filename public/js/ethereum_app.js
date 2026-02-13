@@ -3,6 +3,7 @@ import { CONFIG_PUBLIC } from "../public.config.js"
 
 const ETH_RPC_URL = CONFIG_PUBLIC.ethereum.rpcUrl;
 const ETH_CONTRACT_ADDRESS = CONFIG_PUBLIC.ethereum.contractAddress;
+const ETH_CHAIN_ID_HEX = CONFIG_PUBLIC.ethereum.chainIdHex;
 
 const ABI = [
   "function setMidTermGrade(string,uint8)",
@@ -25,16 +26,15 @@ let evm = null;
 
 const CHAIN = {
   key: "eth",
-  label: "Ethereum Sepolia",
-  chainIdHex: "0xaa36a7", // 11155111
+  label: "Ethereum ",
+  chainIdHex: ETH_CHAIN_ID_HEX,
   rpcUrl: ETH_RPC_URL,
   contract: ETH_CONTRACT_ADDRESS,
   addParams: {
-    chainId: "0xaa36a7",
-    chainName: "Ethereum Sepolia",
+    chainId: ETH_CHAIN_ID_HEX,
+    chainName: "Ethereum ",
     rpcUrls: [ETH_RPC_URL],
-    nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
-    blockExplorerUrls: ["https://sepolia.etherscan.io"],
+    nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 }
   },
 };
 
@@ -77,8 +77,6 @@ async function ensureNetwork(provider, targetChainIdHex, addParams) {
 
 // Connect wallet
 connectBtn?.addEventListener("click", async () => {
-  debugger;
-
   try {
     if (!window.ethereum) {
       toast("EVM Wallet not found");

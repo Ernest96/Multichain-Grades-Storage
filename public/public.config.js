@@ -1,7 +1,8 @@
 export const CONFIG_PUBLIC = {
   "ethereum": {
     "rpcUrl": "https://sepolia.infura.io/v3/bd24e72571644461944188b92dfb02c5",
-    "contractAddress": "0x485f3119D4C0Be894A2220865ACc9a30861d3792"
+    "contractAddress": "0x485f3119D4C0Be894A2220865ACc9a30861d3792",
+    "chainIdHex": "0xaa36a7"
   },
   "polygon": {
     "rpcUrl": "https://rpc-amoy.polygon.technology",
