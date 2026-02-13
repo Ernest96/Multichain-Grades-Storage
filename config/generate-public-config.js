@@ -2,7 +2,7 @@ import fs from "fs";
 import { CONFIG } from "./project.config.js";
 
 const PUBLIC_DIR = "../public";
-const IDL_DEST_DIR = '../public/js/idl';
+const IDL_DEST_DIR = `${PUBLIC_DIR}/js/idl`;
 const IDL_DEST = `${IDL_DEST_DIR}/${CONFIG.solana.idlDestName}`;
 
 fs.mkdirSync(IDL_DEST_DIR, { recursive: true });

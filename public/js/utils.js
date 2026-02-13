@@ -44,7 +44,6 @@ export function toast(message, opts = {}) {
 export function getEvmProviders() {
    const out = [];
 
-  // MetaMask / multi-injected (standard-ish)
   const eth = window.ethereum;
   if (eth) {
     const providers = Array.isArray(eth.providers) ? eth.providers : [eth];
@@ -62,7 +61,6 @@ export function getEvmProviders() {
     }
   }
 
-  // Phantom EVM (sometimes exposed via window.phantom.ethereum)
   const phantomEvm = window.phantom?.ethereum;
   if (phantomEvm) {
     out.push({ provider: phantomEvm, name: "Phantom (EVM)" });

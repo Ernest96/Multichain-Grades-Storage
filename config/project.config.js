@@ -15,7 +15,7 @@ export const CONFIG = {
   solana: {
     rpcUrl: "https://api.devnet.solana.com",
     programId: "9cdrcYFonADBKCEgLFJfkTMBYAYUzdG61h58hMx1nnvP",
-    idlSrc: "../solana/target/idl/exam_grade_storage.json",
+    idlSrc: "../blockchain/solana/target/idl/exam_grade_storage.json",
     idlDestName: "solana_idl.json",
   },
   security: {

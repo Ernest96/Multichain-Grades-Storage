@@ -168,7 +168,7 @@ The project uses Sepolia, Amoy and Solana devnet.
 1. Navigate to ethereum_polygon folder
 
 ```bash
-cd ethereum_polygon
+cd  blockchain/ethereum_polygon
 ```
 
 2. Install dependencies
@@ -205,7 +205,7 @@ Create a local wallet before doing this. You have the privat key on your machine
 1. Navigate to solana folder
 
 ```bash
-cd solana
+cd blockchain/solana
 ```
 
 2. Change to devnet
