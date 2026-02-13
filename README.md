@@ -223,7 +223,7 @@ anchor build
 4. Deploy smart contract (do not forget to update program id)
 
 ```bash
-anchor deploy
+anchor deploy --provider.cluster devnet
 ```
 
 ---
