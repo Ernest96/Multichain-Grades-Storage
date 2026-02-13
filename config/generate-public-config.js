@@ -17,6 +17,7 @@ const PUBLIC_CONFIG = {
   polygon: {
     rpcUrl: CONFIG.polygon.rpcUrl,
     contractAddress: CONFIG.polygon.contractAddress,
+    chainIdHex: CONFIG.polygon.chainIdHex
   },
   solana: {
     rpcUrl: CONFIG.solana.rpcUrl,

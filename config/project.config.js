@@ -5,6 +5,7 @@ export const CONFIG = {
     rpcUrl: "https://rpc-amoy.polygon.technology",
     privateKey: process.env.POL_PRIVATE_KEY,
     contractAddress: "0xA42984803c7d21FA453bde0527A5B9baF65235e6",
+    chainIdHex: "0x13882"
   },
   ethereum: {
     rpcUrl: "https://sepolia.infura.io/v3/bd24e72571644461944188b92dfb02c5",

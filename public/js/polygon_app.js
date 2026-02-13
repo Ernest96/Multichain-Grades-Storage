@@ -3,6 +3,7 @@ import { CONFIG_PUBLIC } from "../public.config.js";
 
 const POL_RPC_URL = CONFIG_PUBLIC.polygon.rpcUrl;
 const POL_CONTRACT_ADDRESS = CONFIG_PUBLIC.polygon.contractAddress;
+const POL_IDX_HEX = CONFIG_PUBLIC.polygon.chainIdHex;
 
 const ABI = [
   "function setLabGrade(string,uint8)",
@@ -26,16 +27,15 @@ let evm = null;
 
 const CHAIN = {
   key: "pol",
-  label: "Polygon Amoy",
-  chainIdHex: "0x13882",
+  label: "Polygon",
+  chainIdHex: POL_IDX_HEX,
   rpcUrl: POL_RPC_URL,
   contract: POL_CONTRACT_ADDRESS,
   addParams: {
-    chainId: "0x13882",
-    chainName: "Polygon Amoy",
+    chainId: POL_IDX_HEX,
+    chainName: "Polygon",
     rpcUrls: [POL_RPC_URL],
-    nativeCurrency: { name: "POL", symbol: "POL", decimals: 18 },
-    blockExplorerUrls: ["https://amoy.polygonscan.com"],
+    nativeCurrency: { name: "POL", symbol: "POL", decimals: 18 }
   },
 };
 

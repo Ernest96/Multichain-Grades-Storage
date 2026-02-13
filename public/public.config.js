@@ -6,7 +6,8 @@ export const CONFIG_PUBLIC = {
   },
   "polygon": {
     "rpcUrl": "https://rpc-amoy.polygon.technology",
-    "contractAddress": "0xA42984803c7d21FA453bde0527A5B9baF65235e6"
+    "contractAddress": "0xA42984803c7d21FA453bde0527A5B9baF65235e6",
+    "chainIdHex": "0x13882"
   },
   "solana": {
     "rpcUrl": "https://api.devnet.solana.com",
