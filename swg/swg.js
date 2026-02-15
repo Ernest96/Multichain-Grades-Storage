@@ -9,7 +9,7 @@ import { setSecurityHeaders } from "./middleware/policies.middleware.js";
 const app = express();
 const PORT = CONFIG.swg.port;
 
-const DAPP_ORIGIN = `${CONFIG.swg.host}:${CONFIG.swg.port}`;
+const DAPP_ORIGIN = `${CONFIG.swg.host}:${CONFIG.swg.externalPort}`;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -21,5 +21,5 @@ app.use(setSecurityHeaders);
 app.use(express.static(path.join(process.cwd(), "../public")));
 
 app.listen(PORT, () => {
-  console.log(`SWG running at ${DAPP_ORIGIN}`);
+  console.log(`SWG running at ${DAPP_ORIGIN}. internal port = ${PORT}`);
 });
