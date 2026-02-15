@@ -60,6 +60,7 @@ The SWG dynamically generates headers based on:
 swgApi: {
     host: process.env.SWG_API_HOST,
     port: Number(process.env.SWG_API_PORT),
+    origin: getSwgApiOrigin(),
     cors: {
       allowOriginsExtra: [],
       allowMethods: ["GET", "POST", "OPTIONS"],
@@ -70,6 +71,7 @@ swgApi: {
   swg: {
     host: process.env.SWG_HOST,
     port: Number(process.env.SWG_PORT),
+    origin: getSwgApiOrigin(),
     csp: {
       base: {
         directives: {
@@ -124,15 +126,17 @@ Before running the project:
 2. Create a `.env` file inside the `config/` directory and define the required environment variables, for example:
 
 ```bash
-POL_PRIVATE_KEY=  
-ETH_PRIVATE_KEY=  
-JWT_SECRET=  
-ADMIN_LOGIN=  
-ADMIN_PASSWORD=  
-SWG_API_HOST=localhost  
-SWG_API_PORT=3001  
-SWG_HOST=localhost  
-SWG_PORT=3000  
+SWG_LIVE=0
+ETH_PRIVATE_KEY=
+POL_PRIVATE_KEY=
+JWT_DOMAIN=localhost
+JWT_SECRET=
+ADMIN_LOGIN=
+ADMIN_PASSWORD=
+SWG_API_HOST=http://localhost
+SWG_API_PORT=3001
+SWG_HOST=http://localhost
+SWG_PORT=3000
 ```
 
 3. Download, build dependencies, generate public config and start the app:

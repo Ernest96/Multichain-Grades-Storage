@@ -40,6 +40,9 @@ export const CONFIG = {
     host: process.env.SWG_HOST,
     port: Number(process.env.SWG_PORT),
     origin: getSwgOrigin(),
+    coop: "same-origin-allow-popups",
+    coep: "require-corp",
+    corp: "same-origin",
     csp: {
       base: {
         directives: {
