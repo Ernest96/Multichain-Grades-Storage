@@ -11,7 +11,7 @@ import { corsMiddleware } from "./middleware/cors.middleware.js";
 const app = express();
 const HOST = CONFIG.swgApi.host;
 const PORT = CONFIG.swgApi.port;
-const DAPP_ORIGIN = CONFIG.live ? CONFIG.swg.host :`${CONFIG.swg.host}:${CONFIG.swg.port}`;
+const DAPP_ORIGIN = CONFIG.swg.origin;
 
 app.use(express.json());
 app.use(cookieParser());

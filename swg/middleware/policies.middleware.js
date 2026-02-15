@@ -34,7 +34,7 @@ function roleFromCookie(req) {
 function resolveConnectSrc(path, role) {
   const csp = swg.csp;
 
-  const apiOrigin = CONFIG.live ? swgApi.host : `${swgApi.host}:${swgApi.port}`;
+  const apiOrigin = CONFIG.swgApi.origin;
 
   const base = [
     "'self'",

@@ -15,6 +15,6 @@ export const CONFIG_PUBLIC = {
     "idlName": "solana_idl.json"
   },
   "swgApi": {
-    "origin": "http://localhost:3001"
+    "origin": "http://localhost"
   }
 };

@@ -6,7 +6,7 @@ const {
   allowHeaders,
 } = CONFIG.swgApi.cors;
 
-const DAPP_ORIGIN = CONFIG.live ? CONFIG.swg.host : `${CONFIG.swg.host}:${CONFIG.swg.port}`;
+const DAPP_ORIGIN = CONFIG.swg.origin;
 
 export function corsMiddleware(req, res, next) {
   const origin = req.headers.origin;
