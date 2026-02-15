@@ -5,7 +5,7 @@ const selectEl = document.getElementById("studentSelect");
 
 export async function loadStudents() {
   const res = await fetch(STUDENTS_API, {
-    credentials: "include" // pt auth SWG
+    credentials: "include"
   });
 
   if (!res.ok) throw new Error("Failed to load students");

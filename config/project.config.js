@@ -21,6 +21,7 @@ export const CONFIG = {
     idlDestName: "solana_idl.json",
   },
   security: {
+    jwtDomain: process.env.JWT_DOMAIN,
     jwtSecret: process.env.JWT_SECRET,
     adminLogin: process.env.ADMIN_LOGIN,
     adminPassword: process.env.ADMIN_PASSWORD,
