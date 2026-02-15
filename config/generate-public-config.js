@@ -25,7 +25,7 @@ const PUBLIC_CONFIG = {
     idlName: CONFIG.solana.idlDestName
   },
   swgApi: {
-    origin: `${CONFIG.swgApi.host}:${CONFIG.swgApi.externalPort}`,
+    origin:  CONFIG.live ? CONFIG.swgApi.host :`${CONFIG.swgApi.host}:${CONFIG.swgApi.port}`,
   },
 };
 

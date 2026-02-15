@@ -1,6 +1,7 @@
 import "dotenv/config";
 
 export const CONFIG = {
+  live: process.env.SWG_LIVE == 0 ? false : true,
   polygon: {
     rpcUrl: "https://rpc-amoy.polygon.technology",
     privateKey: process.env.POL_PRIVATE_KEY,
@@ -27,7 +28,6 @@ export const CONFIG = {
   swgApi: {
     host: process.env.SWG_API_HOST,
     port: Number(process.env.SWG_API_PORT),
-    externalPort: Number(process.env.SWG_API_EXTERNAL_PORT),
     cors: {
       allowOriginsExtra: [],
       allowMethods: ["GET", "POST", "OPTIONS"],
@@ -38,7 +38,6 @@ export const CONFIG = {
   swg: {
     host: process.env.SWG_HOST,
     port: Number(process.env.SWG_PORT),
-    externalPort: Number(process.env.SWG_EXTERNAL_PORT),
     csp: {
       base: {
         directives: {

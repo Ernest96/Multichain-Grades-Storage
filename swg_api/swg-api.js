@@ -11,7 +11,7 @@ import { corsMiddleware } from "./middleware/cors.middleware.js";
 const app = express();
 const HOST = CONFIG.swgApi.host;
 const PORT = CONFIG.swgApi.port;
-const DAPP_ORIGIN = `${CONFIG.swg.host}:${CONFIG.swg.externalPort}`;
+const DAPP_ORIGIN = CONFIG.live ? CONFIG.swg.host :`${CONFIG.swg.host}:${CONFIG.swg.port}`;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -27,6 +27,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`SWG_API running at ${HOST}:${CONFIG.swgApi.externalPort}. internal port = ${PORT}`);
+  console.log(`SWG_API running at ${HOST}:${CONFIG.swgApi.port}`);
   console.log(`Allowed dApp origin: ${DAPP_ORIGIN}`);
 });
