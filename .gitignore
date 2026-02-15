@@ -33,7 +33,7 @@ coverage/
 # Solana / Anchor
 # =====================
 **/.anchor/
-**/target/
+**/target/*
 **/.solana/
 **/keypairs/
 **/wallets/
@@ -42,6 +42,10 @@ coverage/
 
 **/*.rs.bk
 solana/.yarn
+
+# BUT keep idl
+!**/target/idl/
+!**/target/idl/**
 
 # =====================
 # Generated files
