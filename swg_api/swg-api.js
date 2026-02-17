@@ -27,6 +27,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`SWG_API running at ${HOST}:${CONFIG.swgApi.port}`);
+  console.log(`SWG_API running at ${HOST}:${PORT}`);
   console.log(`Allowed dApp origin: ${DAPP_ORIGIN}`);
 });
