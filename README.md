@@ -74,9 +74,21 @@ swgApi: {
     host: process.env.SWG_HOST,
     port: Number(process.env.SWG_PORT),
     origin: getSwgOrigin(),
-    coop: "same-origin-allow-popups",
-    coep: "require-corp",
-    corp: "same-origin",
+    coopBase: "unsafe-none",
+    coepBase: "unsafe-none",
+    corpBase: "cross-origin",
+    riskProfiles: {
+      low: {
+        coop: "unsafe-none",
+        coep: "unsafe-none",
+        corp: "cross-origin",
+      },
+      high: {
+        coop: "same-origin-allow-popups",
+        coep: "require-corp",
+        corp: "same-origin",
+      },
+    },
     csp: {
       base: {
         directives: {
@@ -97,6 +109,7 @@ swgApi: {
       // route specific CSP
       routes: {
         "/": {
+          riskLevel: "high",
           connectAdd: [],
           scriptAdd: []
         },
@@ -104,6 +117,7 @@ swgApi: {
       // role specific CSP
       roles: {
         admin: {
+          riskLevel: "high",
           connectAdd: ["https://api.devnet.solana.com", "https://esm.sh", "wss://api.devnet.solana.com/"],
           scriptAdd: ["https://esm.sh"]
         },
@@ -112,13 +126,14 @@ swgApi: {
       routeRoles: {
         "/": {
           admin: {
+            riskLevel: "high",
             connectAdd: [],
             scriptAdd: []
           },
         },
       },
     },
-  },
+  }
 ```
 ---
 

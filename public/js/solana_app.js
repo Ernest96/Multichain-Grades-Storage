@@ -16,8 +16,8 @@ const connectionBadgeDot = document.querySelector("#solanaChainBadge .dot");
 
 function getGradeOrThrow() {
   const v = Number((gradeInputElement?.value || "").trim());
-  if (!Number.isInteger(v) || v < 0 || v > 10) {
-    throw new Error("Grade must be an integer between 0 and 10");
+  if (!Number.isInteger(v) || v <= 0 || v > 10) {
+    throw new Error("Grade must be an integer between 1 and 10");
   }
   return v;
 }
