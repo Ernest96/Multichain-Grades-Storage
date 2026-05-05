@@ -2,15 +2,17 @@
 
 ## Authors
 
-**Ernest Bîtca**
-**Dumitru Ciorbă**
-**Ana Țurcan**
-**Ciprian Dobre**
+- **Ernest Bîtca¹**  
+- **Dumitru Ciorbă¹**  
+- **Ana Țurcan¹**  
+- **Ciprian Dobre²**  
 
 ## Affiliations
 
-*Technical University of Moldova, Chișinău*  
-*National University of Science and Technology POLITEHNICA Bucharest*
+¹ Technical University of Moldova, Chișinău  
+² National University of Science and Technology POLITEHNICA Bucharest  
+
+##
 
 A practical demonstration of interoperable multichain applications using a Semantic Web Gateway (SWG) architecture, where off-chain academic identities interact with on-chain grade storage across multiple blockchain ecosystems.
 
