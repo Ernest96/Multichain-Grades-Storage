@@ -1,5 +1,9 @@
 # Multichain Grades Storage — Semantic Web Gateway Demo
 
+Ernest Bîtca    Ana Țurcan    Ciprian Dobre    Dumitru Ciorbă
+Technical University of Moldova, Chișinău
+National University of Science and Technology POLITEHNICA Bucharest
+
 A practical demonstration of interoperable multichain applications using a Semantic Web Gateway (SWG) architecture, where off-chain academic identities interact with on-chain grade storage across multiple blockchain ecosystems.
 
 The system showcases how a single web interface can securely read and write academic records distributed across heterogeneous blockchain networks.
