@@ -3,10 +3,9 @@
 ## Authors
 
 **Ernest Bîtca**
-**Dumitru Ciorbă** 
-**Ana Țurcan**  
-**Ciprian Dobre**  
-
+**Dumitru Ciorbă**
+**Ana Țurcan**
+**Ciprian Dobre**
 
 ## Affiliations
 
