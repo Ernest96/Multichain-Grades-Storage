@@ -2,7 +2,7 @@ import "dotenv/config";
 
 export const CONFIG = {
   polygon: {
-    rpcUrl: "https://rpc-amoy.polygon.technology",
+    rpcUrl: "https://polygon-amoy.drpc.org",
     privateKey: process.env.POL_PRIVATE_KEY,
     contractAddress: "0xA42984803c7d21FA453bde0527A5B9baF65235e6",
     chainIdHex: "0x13882"
@@ -69,7 +69,7 @@ export const CONFIG = {
         },
         connectSrc: [
           "https://sepolia.infura.io",
-          "https://rpc-amoy.polygon.technology",
+          "https://polygon-amoy.drpc.org",
         ],
       },
       // route specific CSP
