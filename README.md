@@ -117,7 +117,7 @@ swgApi: {
         },
         connectSrc: [
           "https://sepolia.infura.io",
-          "https://rpc-amoy.polygon.technology",
+          "https://polygon-amoy.drpc.org",
         ],
       },
       // route specific CSP
